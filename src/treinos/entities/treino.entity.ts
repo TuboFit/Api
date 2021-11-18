@@ -18,7 +18,10 @@ export class Treino {
     @JoinColumn()
     aluno: Aluno[];
 
-    @ManyToOne(() => Professor, professor => professor.treinos)
+    @ManyToOne(() => Professor, professor => professor.treinos, {
+        onDelete: "NO ACTION",
+        onUpdate: "CASCADE",
+    })
     @JoinColumn()
     professor: Professor
 

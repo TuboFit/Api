@@ -24,7 +24,10 @@ export class Endereco {
     @Column()
     uf: string
 
-    @OneToOne(() => Pessoa, pessoa => pessoa.endereco)
+    @OneToOne(() => Pessoa, pessoa => pessoa.endereco, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    })
     @JoinColumn()
     pessoa: Pessoa
 

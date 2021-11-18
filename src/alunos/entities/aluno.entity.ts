@@ -14,6 +14,7 @@ export class Aluno {
     @OneToOne(() => Pessoa, {
         eager: true,
         cascade: true,
+        onDelete: 'CASCADE',
         createForeignKeyConstraints: false
     })
     @JoinColumn()
@@ -22,6 +23,7 @@ export class Aluno {
     @OneToOne(() => Usuario, {
         eager: true,
         cascade: true,
+        onDelete: 'CASCADE',
         createForeignKeyConstraints: false
     })
     @JoinColumn()

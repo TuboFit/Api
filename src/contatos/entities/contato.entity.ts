@@ -14,7 +14,10 @@ export class Contato {
     @Column()
     telefone: string
 
-    @ManyToOne(() => Pessoa, pessoa => pessoa.contato)
+    @ManyToOne(() => Pessoa, pessoa => pessoa.contato, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+    })
     pessoa: Pessoa
 
     @CreateDateColumn()
