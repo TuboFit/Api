@@ -7,7 +7,7 @@ export const databaseProviders = [
         useFactory: async () => await createConnection({
             type: 'postgres',
             name: 'turbofit_database',
-            url: 'postgres://postgres:admin@turbo_fit_database:5432/turbo_fit_database',
+            url: process.env.DATABASE_URL,
             entities: [
                 __dirname + '/../**/*.entity{.ts,.js}',
             ],
