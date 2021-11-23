@@ -15,6 +15,7 @@ export class ExerciciosService {
     exercicio.grup_muscular = createExercicioDto.grup_muscular;
     exercicio.nome = createExercicioDto.nome;
     exercicio.carga = createExercicioDto.carga;
+    exercicio.dia = createExercicioDto.dia;
     exercicio.descricao = createExercicioDto.descricao;
     exercicio.num_repeticoes = createExercicioDto.num_repeticoes;
     return this.exercicioRepository.save(exercicio);

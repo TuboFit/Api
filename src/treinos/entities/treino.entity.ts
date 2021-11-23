@@ -19,20 +19,15 @@ export class Treino {
     aluno: Aluno[];
 
     @ManyToOne(() => Professor, professor => professor.treinos, {
+        eager: true,
         onDelete: "NO ACTION",
         onUpdate: "CASCADE",
     })
     @JoinColumn()
     professor: Professor
 
-    @Column({ nullable: false })
-    grup_muscular: string;
-
     @Column()
     nivel: string;
-
-    @Column()
-    dia: string;
 
     @ManyToMany(() => Exercicio, exercicio => exercicio.treinos, {
         eager: true,

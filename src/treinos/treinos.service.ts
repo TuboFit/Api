@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Professor } from 'src/professores/entities/professor.entity';
+import { JoinColumn, Repository } from 'typeorm';
 import { CreateTreinoDto } from './dto/create-treino.dto';
 import { UpdateTreinoDto } from './dto/update-treino.dto';
 import { Treino } from './entities/treino.entity';
@@ -13,16 +14,14 @@ export class TreinosService {
   create(createTreinoDto: CreateTreinoDto) {
     const treino = new Treino();
     treino.aluno = createTreinoDto.dados_aluno;
-    treino.professor = createTreinoDto.dados_professor;
-    treino.dia = createTreinoDto.dia;
+    treino.professor = createTreinoDto.professor;
     treino.nivel = createTreinoDto.nivel;
-    treino.grup_muscular = createTreinoDto.grup_muscular;
     treino.exercicios = createTreinoDto.exercicios;
     return this.treinoRepository.save(treino);
   }
 
   findAll(): Promise<Treino[]> {
-    return this.treinoRepository.find();
+    return this.treinoRepository.find()
   }
 
   findOne(id: string): Promise<Treino> {

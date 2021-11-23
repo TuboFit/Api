@@ -18,6 +18,9 @@ export class Exercicio {
     @Column({ nullable: false })
     num_repeticoes: string;
 
+    @Column({ nullable: true })
+    dia: string;
+
     @Column()
     carga: string;
 
