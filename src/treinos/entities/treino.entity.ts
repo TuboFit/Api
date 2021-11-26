@@ -12,7 +12,7 @@ export class Treino {
     id: string;
 
     @ManyToOne(() => Aluno, aluno => aluno.treino, {
-        onDelete: "NO ACTION",
+        onDelete: "CASCADE",
         onUpdate: "CASCADE"
     })
     @JoinColumn()
