@@ -10,7 +10,10 @@ export class LoginService {
         const user = await this.usuariosService.findOneEmail(email)
         const authorization = await bcrypt.compare(password, user.password)
         if (authorization) {
-            const useReturns = `id: ${user.id}, email: ${user.email}`
+            const useReturns = {
+                id: user.id,
+                email: user.email
+            }
 
             const token = sign({
                 usuario: {
