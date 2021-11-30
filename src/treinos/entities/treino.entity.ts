@@ -12,9 +12,8 @@ export class Treino {
     id: string;
 
     @ManyToOne(() => Aluno, aluno => aluno.treino, {
-        createForeignKeyConstraints: true,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
+        onDelete: "SET NULL",
+        onUpdate: 'CASCADE',
     })
     @JoinColumn()
     aluno: Aluno[];

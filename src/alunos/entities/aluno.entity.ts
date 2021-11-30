@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn, Generated, PrimaryColumn } from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn, Generated, PrimaryColumn, ManyToMany, ManyToOne } from "typeorm";
 import { v4 as uuid } from 'uuid'
 import { Pessoa } from '../../pessoas/entities/pessoa.entity';
 import { Usuario } from '../../usuarios/entities/usuario.entity';
@@ -49,9 +49,7 @@ export class Aluno {
 
     @OneToMany(() => Treino, treino => treino.aluno, {
         eager: true,
-        cascade: true,
-        onDelete: "SET NULL",
-        onUpdate: "CASCADE",
+        cascade: true
     })
     @JoinColumn()
     treino: Treino[];
