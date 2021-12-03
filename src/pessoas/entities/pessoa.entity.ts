@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, Generated, JoinTable, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Generated, JoinTable, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Contato } from "src/contatos/entities/contato.entity";
 import { Endereco } from "src/enderecos/entities/endereco.entity";
 import { v4 as uuidv4, } from 'uuid';
@@ -16,7 +16,7 @@ export class Pessoa {
     @Column()
     cpf: string;
 
-    @OneToMany(() => Contato, contato => contato.pessoa, {
+    @ManyToOne(() => Contato, contato => contato.pessoa, {
         eager: true,
         cascade: true,
         onDelete: "CASCADE",
