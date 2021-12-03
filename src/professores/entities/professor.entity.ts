@@ -14,6 +14,7 @@ export class Professor {
     @OneToOne(() => Pessoa, {
         eager: true,
         cascade: true,
+        onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     })
     @JoinColumn()
@@ -25,6 +26,7 @@ export class Professor {
     @OneToOne(() => Usuario, {
         eager: true,
         cascade: true,
+        onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
     })
     @JoinColumn()
