@@ -10,34 +10,59 @@ export class AlunosService {
     @Inject('ALUNO_REPOSITORY')
     private alunoRepository: Repository<Aluno>,
   ) { }
-  create(createAlunoDto: CreateAlunoDto) {
-    const aluno = new Aluno();
-    aluno.altura = createAlunoDto.altura;
-    aluno.idade = createAlunoDto.idade;
-    aluno.genero = createAlunoDto.genero;
-    aluno.peso = createAlunoDto.peso;
-    aluno.imc = createAlunoDto.imc;
-    aluno.tmb = createAlunoDto.tmb;
-    aluno.usuario = createAlunoDto.usuario;
-    aluno.dados = createAlunoDto.dados;
-    aluno.treino = createAlunoDto.treino;
 
-    return this.alunoRepository.save(aluno);
+  create(createAlunoDto: CreateAlunoDto) {
+    try {
+      const aluno = new Aluno();
+      aluno.altura = createAlunoDto.altura;
+      aluno.idade = createAlunoDto.idade;
+      aluno.genero = createAlunoDto.genero;
+      aluno.peso = createAlunoDto.peso;
+      aluno.imc = createAlunoDto.imc;
+      aluno.tmb = createAlunoDto.tmb;
+      aluno.usuario = createAlunoDto.usuario;
+      aluno.dados = createAlunoDto.dados;
+      aluno.treino = createAlunoDto.treino;
+
+      return this.alunoRepository.save(aluno);
+
+    } catch (error) {
+      return error
+    }
+
   }
 
   findAll(): Promise<Aluno[]> {
-    return this.alunoRepository.find();
+    try {
+      return this.alunoRepository.find();
+    } catch (error) {
+      return error
+    }
   }
 
   findOne(id: string): Promise<Aluno> {
-    return this.alunoRepository.findOne({ id: id });
+    try {
+      return this.alunoRepository.findOne({ id: id });
+    } catch (error) {
+      return error
+    }
   }
 
   update(id: string, updateAlunoDto: UpdateAlunoDto) {
-    return this.alunoRepository.update({ id: id }, updateAlunoDto)
+    try {
+      return this.alunoRepository.save(updateAlunoDto, { data: { id } })
+    } catch (error) {
+      return error
+    }
+
   }
 
   remove(id: string) {
-    return this.alunoRepository.delete({ id: id });
+    try {
+      return this.alunoRepository.delete({ id: id });
+
+    } catch (error) {
+      return error
+    }
   }
 }

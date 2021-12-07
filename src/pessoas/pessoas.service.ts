@@ -12,27 +12,51 @@ export class PessoasService {
   ) { }
 
   create(createPessoaDto: CreatePessoaDto) {
-    const pessoa = new Pessoa()
-    pessoa.nome = createPessoaDto.nome;
-    pessoa.cpf = createPessoaDto.cpf;
-    pessoa.contato = createPessoaDto.Contato;
-    pessoa.endereco = createPessoaDto.Endereco;
-    return this.pessoaRepository.save(pessoa)
+    try {
+      const pessoa = new Pessoa()
+      pessoa.nome = createPessoaDto.nome;
+      pessoa.cpf = createPessoaDto.cpf;
+      pessoa.contato = createPessoaDto.Contato;
+      pessoa.endereco = createPessoaDto.Endereco;
+      return this.pessoaRepository.save(pessoa)
+    } catch (error) {
+      return error
+    }
+
   }
 
   findAll(): Promise<Pessoa[]> {
-    return this.pessoaRepository.find();
+    try {
+      return this.pessoaRepository.find();
+
+    } catch (error) {
+      return error
+    }
   }
 
   findOne(id: string): Promise<Pessoa> {
-    return this.pessoaRepository.findOne({ id: id });
+    try {
+      return this.pessoaRepository.findOne({ id: id });
+    } catch (error) {
+      return error
+    }
   }
 
   update(id: string, updatePessoaDto: UpdatePessoaDto) {
-    return this.pessoaRepository.update({ id: id }, updatePessoaDto);
+    try {
+      return this.pessoaRepository.save(updatePessoaDto, { data: { id: id } });
+    } catch (error) {
+      return error
+    }
   }
 
   remove(id: string) {
-    return this.pessoaRepository.delete({ id: id });
+    try {
+      return this.pessoaRepository.delete({ id: id });
+
+    } catch (error) {
+      return error
+    }
+
   }
 }

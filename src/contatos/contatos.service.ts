@@ -11,25 +11,48 @@ export class ContatosService {
     private contatoRepository: Repository<Contato>,
   ) { }
   create(createContatoDto: CreateContatoDto) {
-    const contato = new Contato;
-    contato.email = createContatoDto.email;
-    contato.telefone = createContatoDto.telefone
-    return this.contatoRepository.save(contato);
+    try {
+      const contato = new Contato;
+      contato.email = createContatoDto.email;
+      contato.telefone = createContatoDto.telefone
+      return this.contatoRepository.save(contato);
+    } catch (error) {
+      return error
+    }
+
   }
 
   findAll(): Promise<Contato[]> {
-    return this.contatoRepository.find();
+    try {
+      return this.contatoRepository.find();
+    } catch (error) {
+      return error
+    }
   }
 
-  findOne(id: string) {
-    return this.contatoRepository.findOne({ id: id });
+  findOne(id: string): Promise<Contato> {
+    try {
+      return this.contatoRepository.findOne({ id: id });
+
+    } catch (error) {
+      return error
+    }
   }
 
   update(id: string, updateContatoDto: UpdateContatoDto) {
-    return this.contatoRepository.update({ id: id }, updateContatoDto);
+    try {
+      return this.contatoRepository.save(updateContatoDto, { data: { id } });
+
+    } catch (error) {
+      return error
+    }
   }
 
   remove(id: string) {
-    return this.contatoRepository.delete({ id: id });
+    try {
+      return this.contatoRepository.delete({ id: id });
+    } catch (error) {
+      return error
+    }
   }
 }

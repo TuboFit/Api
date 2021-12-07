@@ -16,7 +16,7 @@ export class Contato {
 
     @ManyToOne(() => Pessoa, pessoa => pessoa.contato, {
         onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onUpdate: "CASCADE"
     })
     pessoa: Pessoa
 

@@ -11,28 +11,50 @@ export class EnderecosService {
     private enderecoRepository: Repository<Endereco>,
   ) { }
   create(createEnderecoDto: CreateEnderecoDto) {
-    const endereco = new Endereco();
-    endereco.logradouro = createEnderecoDto.logradouro;
-    endereco.numero = createEnderecoDto.numero;
-    endereco.bairro = createEnderecoDto.bairro;
-    endereco.cidade = createEnderecoDto.cidade;
-    endereco.uf = createEnderecoDto.uf;
-    return this.enderecoRepository.save(endereco);
+    try {
+      const endereco = new Endereco();
+      endereco.logradouro = createEnderecoDto.logradouro;
+      endereco.numero = createEnderecoDto.numero;
+      endereco.bairro = createEnderecoDto.bairro;
+      endereco.cidade = createEnderecoDto.cidade;
+      endereco.uf = createEnderecoDto.uf;
+      return this.enderecoRepository.save(endereco);
+    } catch (error) {
+      return error
+    }
+
   }
 
   findAll(): Promise<Endereco[]> {
-    return this.enderecoRepository.find();
+    try {
+      return this.enderecoRepository.find();
+
+    } catch (error) {
+      return error
+    }
   }
 
   findOne(id: string): Promise<Endereco> {
-    return this.enderecoRepository.findOne({ id: id })
+    try {
+      return this.enderecoRepository.findOne({ id: id })
+    } catch (error) {
+      return error
+    }
   }
 
   update(id: string, updateEnderecoDto: UpdateEnderecoDto) {
-    return this.enderecoRepository.update({ id: id }, updateEnderecoDto);
+    try {
+      return this.enderecoRepository.save(updateEnderecoDto, { data: { id } });
+    } catch (error) {
+      return error
+    }
   }
 
   remove(id: string) {
-    return `This action removes a #${id} endereco`;
+    try {
+      return this.enderecoRepository.delete({ id: id })
+    } catch (error) {
+      return error
+    }
   }
 }

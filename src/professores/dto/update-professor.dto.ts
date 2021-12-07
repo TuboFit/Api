@@ -5,6 +5,6 @@ import { CreateProfessorDto } from './create-professor.dto';
 
 export class UpdateProfessorDto extends PartialType(CreateProfessorDto) {
     cref: string;
+    dados?: Pessoa;
     usuario: Usuario;
-    dados: Pessoa;
 }

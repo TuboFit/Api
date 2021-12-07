@@ -12,27 +12,51 @@ export class TreinosService {
     private treinoRepository: Repository<Treino>,
   ) { }
   create(createTreinoDto: CreateTreinoDto) {
-    const treino = new Treino();
-    treino.aluno = createTreinoDto.dados_aluno;
-    treino.professor = createTreinoDto.professor;
-    treino.nivel = createTreinoDto.nivel;
-    treino.exercicios = createTreinoDto.exercicios;
-    return this.treinoRepository.save(treino);
+    try {
+      const treino = new Treino();
+      treino.aluno = createTreinoDto.dados_aluno;
+      treino.professor = createTreinoDto.professor;
+      treino.nivel = createTreinoDto.nivel;
+      treino.exercicios = createTreinoDto.exercicios;
+      return this.treinoRepository.save(treino);
+    } catch (error) {
+      return error
+    }
   }
 
   findAll(): Promise<Treino[]> {
-    return this.treinoRepository.find()
+    try {
+
+      return this.treinoRepository.find()
+    } catch (error) {
+      return error
+    }
   }
 
   findOne(id: string): Promise<Treino> {
-    return this.treinoRepository.findOne({ id: id });
+    try {
+
+      return this.treinoRepository.findOne({ id: id });
+    } catch (error) {
+      return error
+    }
   }
 
   update(id: string, updateTreinoDto: UpdateTreinoDto) {
-    return this.treinoRepository.update({ id: id }, updateTreinoDto);
+    try {
+      return this.treinoRepository.save(updateTreinoDto, { data: { id } });
+
+    } catch (error) {
+      return error
+    }
   }
 
   remove(id: string) {
-    return this.treinoRepository.delete({ id: id });
+    try {
+      return this.treinoRepository.delete({ id: id });
+
+    } catch (error) {
+      return error
+    }
   }
 }

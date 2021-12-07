@@ -22,15 +22,30 @@ export class ProfessoresService {
     return this.professorRepository.find();
   }
 
-  findOne(id: string) {
-    return this.professorRepository.findOne({ id: id });
+  findOne(id: string): Promise<Professor> {
+    try {
+      return this.professorRepository.findOne({ id: id });
+
+    } catch (error) {
+      return error
+    }
   }
 
-  update(id: string, updateProfessorDto: UpdateProfessorDto) {
-    return this.professorRepository.update({ id: id }, updateProfessorDto);
+  async update(id: string, updateProfessorDto: UpdateProfessorDto) {
+    try {
+      return await this.professorRepository.save(updateProfessorDto, { data: { id } })
+
+    } catch (error) {
+      return error
+    }
+
   }
 
   remove(id: string) {
-    return this.professorRepository.delete({ id: id });
+    try {
+      return this.professorRepository.delete({ id: id });
+    } catch (error) {
+      return error
+    }
   }
 }
