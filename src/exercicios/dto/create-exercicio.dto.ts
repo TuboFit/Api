@@ -5,7 +5,6 @@ export class CreateExercicioDto {
     num_repeticoes: string;
     grup_muscular: string;
     carga: string;
-    dia: string;
     descricao: string;
     treinos: Treino[];
 }

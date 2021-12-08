@@ -41,7 +41,7 @@ export class ContatosService {
 
   update(id: string, updateContatoDto: UpdateContatoDto) {
     try {
-      return this.contatoRepository.save(updateContatoDto, { data: { id } });
+      return this.contatoRepository.update(id, updateContatoDto);
 
     } catch (error) {
       return error

@@ -17,6 +17,7 @@ export class TreinosService {
       treino.aluno = createTreinoDto.dados_aluno;
       treino.professor = createTreinoDto.professor;
       treino.nivel = createTreinoDto.nivel;
+      treino.dia = createTreinoDto.dia
       treino.exercicios = createTreinoDto.exercicios;
       return this.treinoRepository.save(treino);
     } catch (error) {
@@ -44,7 +45,7 @@ export class TreinosService {
 
   update(id: string, updateTreinoDto: UpdateTreinoDto) {
     try {
-      return this.treinoRepository.save(updateTreinoDto, { data: { id } });
+      return this.treinoRepository.update(id, updateTreinoDto);
 
     } catch (error) {
       return error

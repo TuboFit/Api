@@ -11,7 +11,7 @@ export class Usuario {
     @Column({ nullable: false, unique: true })
     email: string;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, default: "mudar123" })
     password: string;
 
     @CreateDateColumn()

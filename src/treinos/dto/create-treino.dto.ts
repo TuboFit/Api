@@ -4,6 +4,7 @@ import { Professor } from "src/professores/entities/professor.entity";
 
 export class CreateTreinoDto {
     nivel: string;
+    dia?: string;
     dados_aluno: Aluno[];
     professor: Professor;
     exercicios: Exercicio[];

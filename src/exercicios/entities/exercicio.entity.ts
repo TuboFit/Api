@@ -18,9 +18,6 @@ export class Exercicio {
     @Column({ nullable: false })
     num_repeticoes: string;
 
-    @Column({ nullable: true })
-    dia: string;
-
     @Column()
     carga: string;
 
@@ -28,6 +25,7 @@ export class Exercicio {
     descricao: string;
 
     @ManyToMany(() => Treino, treinos => treinos.exercicios, {
+        nullable: true,
         onDelete: "SET NULL",
         onUpdate: 'CASCADE',
     })

@@ -15,7 +15,6 @@ export class Aluno {
         eager: true,
         cascade: true,
         onDelete: 'CASCADE',
-        createForeignKeyConstraints: false
     })
     @JoinColumn()
     dados: Pessoa;
@@ -48,6 +47,7 @@ export class Aluno {
     tmb: number;
 
     @OneToMany(() => Treino, treino => treino.aluno, {
+        nullable: true,
         eager: true,
         cascade: true
     })

@@ -12,6 +12,7 @@ export class Treino {
     id: string;
 
     @ManyToOne(() => Aluno, aluno => aluno.treino, {
+        nullable: true,
         onDelete: "SET NULL",
         onUpdate: 'CASCADE',
     })
@@ -26,7 +27,10 @@ export class Treino {
     @JoinColumn()
     professor: Professor
 
-    @Column()
+    @Column({ nullable: true })
+    dia: string;
+
+    @Column({ nullable: true })
     nivel: string;
 
     @ManyToMany(() => Exercicio, exercicio => exercicio.treinos, {

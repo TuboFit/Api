@@ -5,7 +5,6 @@ import { CreateExercicioDto } from './create-exercicio.dto';
 export class UpdateExercicioDto extends PartialType(CreateExercicioDto) {
     nome: string;
     num_repeticoes: string;
-    dia: string;
     carga: string;
     descricao: string;
     treinos: Treino[];

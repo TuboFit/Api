@@ -44,7 +44,7 @@ export class PessoasService {
 
   update(id: string, updatePessoaDto: UpdatePessoaDto) {
     try {
-      return this.pessoaRepository.save(updatePessoaDto, { data: { id: id } });
+      return this.pessoaRepository.update(id, updatePessoaDto);
     } catch (error) {
       return error
     }

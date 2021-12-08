@@ -6,6 +6,6 @@ import { CreatePessoaDto } from './create-pessoa.dto';
 export class UpdatePessoaDto extends PartialType(CreatePessoaDto) {
     nome?: string;
     cpf?: string;
-    Contato?: Contato[];
+    Contato?: Contato;
     Endereco?: Endereco;
 }
