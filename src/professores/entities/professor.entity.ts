@@ -1,6 +1,5 @@
 import { Treino } from "src/treinos/entities/treino.entity";
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn, Generated } from "typeorm";
-import { v4 as uuid } from 'uuid'
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, OneToMany, Generated } from "typeorm";
 import { Pessoa } from "../../pessoas/entities/pessoa.entity";
 import { Usuario } from "../../usuarios/entities/usuario.entity";
 
@@ -41,20 +40,4 @@ export class Professor {
 
     @UpdateDateColumn()
     updated_at: Date;
-
-    constructor() {
-        this.id = this.setId();
-    }
-
-
-    private setId(): string {
-        if (!this.id) {
-            return this.id = uuid();
-        }
-        return this.id
-    }
-
-    public getId(): string {
-        return this.id
-    }
 }

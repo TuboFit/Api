@@ -4,6 +4,6 @@ import { Endereco } from "src/enderecos/entities/endereco.entity";
 export class CreatePessoaDto {
     nome: string;
     cpf: string;
-    Contato: Contato;
+    Contato: Contato[];
     Endereco: Endereco;
 }

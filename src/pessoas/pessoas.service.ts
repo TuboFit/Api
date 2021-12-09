@@ -42,9 +42,11 @@ export class PessoasService {
     }
   }
 
-  update(id: string, updatePessoaDto: UpdatePessoaDto) {
+  async update(id: string, updatePessoaDto: UpdatePessoaDto) {
     try {
-      return this.pessoaRepository.update(id, updatePessoaDto);
+      const getPessoa = await this.pessoaRepository.findOne(id)
+      this.pessoaRepository.merge(getPessoa, updatePessoaDto)
+      return await this.pessoaRepository.save(getPessoa)
     } catch (error) {
       return error
     }

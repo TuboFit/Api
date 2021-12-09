@@ -1,5 +1,5 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, Generated, PrimaryColumn } from "typeorm";
-import { v4 as uuidv4, } from 'uuid';
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, Generated, PrimaryColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+import bcrypt from "bcrypt"
 
 @Entity("usuarios")
 export class Usuario {
@@ -20,14 +20,11 @@ export class Usuario {
     @UpdateDateColumn()
     updated_at: Date;
 
-    constructor() {
-        this.id = this.setId();
-    }
-
-    private setId(): string {
-        if (!this.id) {
-            return this.id = uuidv4();
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword?: any = function () {
+        if (this.password) {
+            this.password = bcrypt.hashSync(this.password, 10)
         }
-        return this.id
     }
 }

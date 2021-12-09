@@ -16,14 +16,14 @@ export class Pessoa {
     @Column()
     cpf: string;
 
-    @OneToOne(() => Contato, contato => contato.pessoa, {
+    @OneToMany(() => Contato, contato => contato.pessoa, {
         eager: true,
         cascade: true,
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
     })
     @JoinTable()
-    contato: Contato;
+    contato: Contato[];
 
     @OneToOne(() => Endereco, endereco => endereco.pessoa, {
         eager: true,

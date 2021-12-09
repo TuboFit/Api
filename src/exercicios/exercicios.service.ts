@@ -10,7 +10,7 @@ export class ExerciciosService {
     @Inject('EXERCICIO_REPOSITORY')
     private exercicioRepository: Repository<Exercicio>,
   ) { }
-  create(createExercicioDto: CreateExercicioDto) {
+  async create(createExercicioDto: CreateExercicioDto) {
     try {
       const exercicio = new Exercicio();
       exercicio.grup_muscular = createExercicioDto.grup_muscular;
@@ -18,29 +18,31 @@ export class ExerciciosService {
       exercicio.carga = createExercicioDto.carga;
       exercicio.descricao = createExercicioDto.descricao;
       exercicio.num_repeticoes = createExercicioDto.num_repeticoes;
-      return this.exercicioRepository.save(exercicio);
-    } catch (error) {
-      return error
 
-    }
-  }
-
-  findAll(): Promise<Exercicio[]> {
-    try {
-      return this.exercicioRepository.find();
-
+      return await this.exercicioRepository.save(exercicio);
     } catch (error) {
       return error
     }
   }
 
-  findOne(id: string): Promise<Exercicio> {
-    return this.exercicioRepository.findOne({ id: id });
+  async findAll(): Promise<Exercicio[]> {
+    try {
+      return await this.exercicioRepository.find();
+
+    } catch (error) {
+      return error
+    }
   }
 
-  update(id: string, updateExercicioDto: UpdateExercicioDto) {
+  async findOne(id: string): Promise<Exercicio> {
+    return await this.exercicioRepository.findOne({ id: id });
+  }
+
+  async update(id: string, updateExercicioDto: UpdateExercicioDto) {
     try {
-      return this.exercicioRepository.save(updateExercicioDto, { data: { id } });
+      const getExercicio = await this.exercicioRepository.findOne(id)
+      this.exercicioRepository.merge(getExercicio, updateExercicioDto)
+      return await this.exercicioRepository.save(getExercicio)
 
     } catch (error) {
       return error

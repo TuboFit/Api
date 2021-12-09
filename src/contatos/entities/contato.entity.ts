@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Generated, OneToOne } from "typeorm";
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Generated, OneToOne, ManyToOne } from "typeorm";
 import { Pessoa } from "src/pessoas/entities/pessoa.entity";
 import { v4 as uuid } from 'uuid';
 
@@ -14,7 +14,7 @@ export class Contato {
     @Column({ nullable: true })
     telefone: string
 
-    @OneToOne(() => Pessoa, pessoa => pessoa.contato, {
+    @ManyToOne(() => Pessoa, pessoa => pessoa.contato, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
     })

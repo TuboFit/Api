@@ -11,19 +11,17 @@ export class UsuariosService {
     @Inject('USUARIO_REPOSITORY')
     private usuarioRepository: Repository<Usuario>,
   ) { }
+
   create(createUsuarioDto: CreateUsuarioDto) {
     try {
       const usuario = new Usuario()
-      const passwordBcrypt = encryptedPassword(createUsuarioDto.password, 10)
       usuario.email = createUsuarioDto.email;
-      usuario.password = passwordBcrypt;
+      usuario.password = createUsuarioDto.password;
 
       return this.usuarioRepository.save(usuario);
     } catch (error) {
       return error
     }
-
-
   }
 
   findAll(): Promise<Usuario[]> {
@@ -47,13 +45,11 @@ export class UsuariosService {
     }
   }
 
-  update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+  async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
     try {
-      const usuarioUpdate = new Usuario()
-      const passwordBcrypt = encryptedPassword(updateUsuarioDto.password, 10)
-      usuarioUpdate.email = updateUsuarioDto.email;
-      usuarioUpdate.password = passwordBcrypt;
-      return this.usuarioRepository.save(usuarioUpdate, { data: { id } });
+      const getUsuario = await this.usuarioRepository.findOne(id)
+      this.usuarioRepository.merge(getUsuario, updateUsuarioDto)
+      return await this.usuarioRepository.save(getUsuario)
     } catch (error) {
       return error
     }

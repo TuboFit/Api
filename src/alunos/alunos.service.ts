@@ -48,9 +48,11 @@ export class AlunosService {
     }
   }
 
-  update(id: string, updateAlunoDto: UpdateAlunoDto) {
+  async update(id: string, updateAlunoDto: UpdateAlunoDto) {
     try {
-      return this.alunoRepository.save(updateAlunoDto, { data: { id } })
+      const getAluno = await this.alunoRepository.findOne(id)
+      this.alunoRepository.merge(getAluno, updateAlunoDto)
+      return await this.alunoRepository.save(getAluno)
     } catch (error) {
       return error
     }

@@ -11,15 +11,25 @@ export class ProfessoresService {
     private professorRepository: Repository<Professor>,
   ) { }
   create(createProfessoreDto: CreateProfessorDto) {
-    const professor = new Professor();
-    professor.cref = createProfessoreDto.cref;
-    professor.dados = createProfessoreDto.dados;
-    professor.usuario = createProfessoreDto.usuario;
-    return this.professorRepository.save(professor)
+    try {
+      const professor = new Professor();
+      professor.cref = createProfessoreDto.cref;
+      professor.dados = createProfessoreDto.dados;
+      professor.usuario = createProfessoreDto.usuario;
+      return this.professorRepository.save(professor)
+    } catch (err) {
+      return err
+    }
+
   }
 
   findAll(): Promise<Professor[]> {
-    return this.professorRepository.find();
+    try {
+      return this.professorRepository.find();
+
+    } catch (error) {
+      return error
+    }
   }
 
   findOne(id: string): Promise<Professor> {
@@ -32,8 +42,12 @@ export class ProfessoresService {
   }
 
   async update(id: string, updateProfessorDto: UpdateProfessorDto) {
+    const getProfessor = await this.professorRepository.findOne(id)
     try {
-      return await this.professorRepository.save(updateProfessorDto, { data: { id } })
+      if (getProfessor) {
+        this.professorRepository.merge(getProfessor, updateProfessorDto)
+        return await this.professorRepository.save(getProfessor)
+      }
 
     } catch (error) {
       return error

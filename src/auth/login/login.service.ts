@@ -27,6 +27,7 @@ export class LoginService {
                     expiresIn: "1d"
                 }
             )
+            console.log({ token, useReturns })
             return { token, useReturns }
         }
     }
