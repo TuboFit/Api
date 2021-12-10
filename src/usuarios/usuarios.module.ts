@@ -3,15 +3,13 @@ import { UsuariosService } from './usuarios.service';
 import { UsuariosController } from './usuarios.controller';
 import { DatabaseModule } from 'src/database/database.module';
 import { usuarioProviders } from './usuarios.providers';
-import { ProfessoresModule } from 'src/professores/professores.module';
-import { AlunosModule } from 'src/alunos/alunos.module';
+import { PessoasModule } from 'src/pessoas/pessoas.module';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     DatabaseModule,
-    forwardRef(() => ProfessoresModule),
-    forwardRef(() => AlunosModule),
+    forwardRef(() => PessoasModule),
     forwardRef(() => AuthModule),
   ],
   controllers: [UsuariosController],

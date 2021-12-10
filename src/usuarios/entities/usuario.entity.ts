@@ -1,5 +1,6 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, Generated, PrimaryColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, Generated, PrimaryColumn, BeforeInsert, BeforeUpdate, OneToMany, OneToOne, JoinColumn } from "typeorm";
 import bcrypt from "bcrypt"
+import { Pessoa } from "src/pessoas/entities/pessoa.entity";
 
 @Entity("usuarios")
 export class Usuario {
@@ -13,6 +14,15 @@ export class Usuario {
 
     @Column({ nullable: true, default: "mudar123" })
     password: string;
+
+    @OneToOne(() => Pessoa, {
+        eager: true,
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    })
+    @JoinColumn()
+    dados: Pessoa
 
     @CreateDateColumn()
     created_at: Date;

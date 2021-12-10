@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { encryptedPassword } from 'src/utils/generatePassword';
 import { Repository } from 'typeorm';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -36,10 +35,10 @@ export class UsuariosService {
     return this.usuarioRepository.findOne({ id: id });
   }
 
-  findOneEmail(email: string): Promise<Usuario> {
+  async findOneEmail(email: string): Promise<Usuario> {
     try {
 
-      return this.usuarioRepository.findOne({ email: email });
+      return await this.usuarioRepository.findOne({ email: email });
     } catch (error) {
       return error
     }

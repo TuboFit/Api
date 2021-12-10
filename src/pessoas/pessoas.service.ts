@@ -14,11 +14,12 @@ export class PessoasService {
   create(createPessoaDto: CreatePessoaDto) {
     try {
       const pessoa = new Pessoa()
-      pessoa.nome = createPessoaDto.nome;
-      pessoa.cpf = createPessoaDto.cpf;
-      pessoa.contato = createPessoaDto.Contato;
-      pessoa.endereco = createPessoaDto.Endereco;
-      return this.pessoaRepository.save(pessoa)
+      pessoa.nome = createPessoaDto.nome
+      pessoa.cpf = createPessoaDto.cpf
+      pessoa.contato = createPessoaDto.Contato
+      pessoa.endereco = createPessoaDto.Endereco
+      pessoa.usuario = createPessoaDto.Usuario
+      this.pessoaRepository.save(pessoa)
     } catch (error) {
       return error
     }

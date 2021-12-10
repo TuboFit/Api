@@ -10,7 +10,6 @@ export class CreateAlunoDto {
     imc: number;
     tmb: number;
     dados: Pessoa;
-    usuario: Usuario;
     treino: Treino[];
 
 }

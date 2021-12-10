@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { LoginService } from './login.service';
 
 interface IBodyDTO {
@@ -11,13 +11,13 @@ export class LoginController {
     constructor(private readonly loginService: LoginService) { }
 
     @Post()
-    login(@Body() body: IBodyDTO) {
+    async login(@Body() body: IBodyDTO) {
         const { email, password } = body
         try {
-            const resultLogin = this.loginService.execute(email, password);
+            const resultLogin = await this.loginService.execute(email, password);
             return resultLogin
         } catch (err) {
-            return new Error(err.message)
+            throw new HttpException("Usuario não autenticado", HttpStatus.FORBIDDEN);
         }
     }
 }

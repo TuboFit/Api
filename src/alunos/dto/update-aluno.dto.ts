@@ -9,6 +9,5 @@ export class UpdateAlunoDto extends PartialType(CreateAlunoDto) {
     peso: number;
     genero: string;
     dados: Pessoa;
-    usuario: Usuario;
     treino: Treino[];
 }

@@ -14,13 +14,13 @@ export class AlunosService {
   create(createAlunoDto: CreateAlunoDto) {
     try {
       const aluno = new Aluno();
+
       aluno.altura = createAlunoDto.altura;
       aluno.idade = createAlunoDto.idade;
       aluno.genero = createAlunoDto.genero;
       aluno.peso = createAlunoDto.peso;
       aluno.imc = createAlunoDto.imc;
       aluno.tmb = createAlunoDto.tmb;
-      aluno.usuario = createAlunoDto.usuario;
       aluno.dados = createAlunoDto.dados;
       aluno.treino = createAlunoDto.treino;
 

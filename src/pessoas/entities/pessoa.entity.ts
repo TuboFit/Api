@@ -1,7 +1,7 @@
-import { Column, CreateDateColumn, Entity, Generated, JoinTable, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Generated, JoinColumn, JoinTable, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Contato } from "src/contatos/entities/contato.entity";
 import { Endereco } from "src/enderecos/entities/endereco.entity";
-import { v4 as uuidv4, } from 'uuid';
+import { Usuario } from "src/usuarios/entities/usuario.entity";
 
 @Entity("dados_pessoais")
 export class Pessoa {
@@ -34,21 +34,18 @@ export class Pessoa {
     @JoinTable()
     endereco: Endereco;
 
+    @OneToOne(() => Usuario, {
+        eager: true,
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
+    })
+    @JoinColumn()
+    usuario: Usuario;
+
     @CreateDateColumn()
     created_at: Date;
 
     @UpdateDateColumn()
     updated_at: Date;
-
-    constructor() {
-        this.id = this.setId();
-    }
-
-    private setId(): string {
-        if (!this.id) {
-            return this.id = uuidv4();
-        }
-        return this.id
-    }
-
 }

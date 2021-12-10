@@ -1,7 +1,10 @@
 import { Treino } from "src/treinos/entities/treino.entity";
-import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, OneToMany, Generated } from "typeorm";
+import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn, Generated } from "typeorm";
+
 import { Pessoa } from "../../pessoas/entities/pessoa.entity";
-import { Usuario } from "../../usuarios/entities/usuario.entity";
+import { CreateProfessorDto } from "../dto/create-professor.dto";
+import { ProfessorDto } from "../dto/Professor.dto";
+
 
 @Entity("professores")
 export class Professor {
@@ -22,14 +25,6 @@ export class Professor {
     @Column({ nullable: false })
     cref: string
 
-    @OneToOne(() => Usuario, {
-        eager: true,
-        cascade: true,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-    })
-    @JoinColumn()
-    usuario: Usuario
 
     @OneToMany(() => Treino, treino => treino.professor)
     @JoinColumn()
@@ -40,4 +35,5 @@ export class Professor {
 
     @UpdateDateColumn()
     updated_at: Date;
+
 }

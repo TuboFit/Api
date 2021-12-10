@@ -1,8 +1,7 @@
 import { Pessoa } from "src/pessoas/entities/pessoa.entity";
-import { Usuario } from "src/usuarios/entities/usuario.entity";
+import { ProfessorDto } from "./Professor.dto";
 
-export class CreateProfessorDto {
+export class CreateProfessorDto extends ProfessorDto {
     cref: string;
     dados: Pessoa;
-    usuario: Usuario;
 }

@@ -1,10 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Pessoa } from 'src/pessoas/entities/pessoa.entity';
-import { Usuario } from 'src/usuarios/entities/usuario.entity';
-import { CreateProfessorDto } from './create-professor.dto';
+import { ProfessorDto } from './Professor.dto';
 
-export class UpdateProfessorDto extends PartialType(CreateProfessorDto) {
+export class UpdateProfessorDto extends PartialType(ProfessorDto) {
     cref: string;
-    dados?: Pessoa;
-    usuario: Usuario;
 }

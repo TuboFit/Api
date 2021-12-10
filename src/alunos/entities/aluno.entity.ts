@@ -19,15 +19,6 @@ export class Aluno {
     @JoinColumn()
     dados: Pessoa;
 
-    @OneToOne(() => Usuario, {
-        eager: true,
-        cascade: true,
-        onDelete: 'CASCADE',
-        createForeignKeyConstraints: false
-    })
-    @JoinColumn()
-    usuario: Usuario;
-
     @Column()
     idade: number;
 
