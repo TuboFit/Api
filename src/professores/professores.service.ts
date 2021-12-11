@@ -43,7 +43,12 @@ export class ProfessoresService {
     }
   }
 
-  remove(id: string) {
-    return this.professorRepository.delete(id);
+  async remove(id: string) {
+    try {
+      return await this.professorRepository.delete(id);
+    } catch (error) {
+      throw new Error("Erro ao deletar professor");
+
+    }
   }
 }

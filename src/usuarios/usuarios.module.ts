@@ -4,13 +4,12 @@ import { UsuariosController } from './usuarios.controller';
 import { DatabaseModule } from 'src/database/database.module';
 import { usuarioProviders } from './usuarios.providers';
 import { AuthModule } from 'src/auth/auth.module';
-import { ProfessoresModule } from 'src/professores/professores.module';
+
 
 @Module({
   imports: [
     DatabaseModule,
-    forwardRef(() => AuthModule),
-    forwardRef(() => ProfessoresModule),
+    forwardRef(() => AuthModule)
   ],
   controllers: [UsuariosController],
   providers: [

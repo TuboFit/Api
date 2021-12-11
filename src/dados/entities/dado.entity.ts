@@ -9,16 +9,16 @@ export class Dados {
     @PrimaryGeneratedColumn("uuid")
     public readonly id: string;
 
-    @Column()
+    @Column({ length: "90", nullable: false })
     public nome: string;
 
-    @Column()
+    @Column({ nullable: false })
     public email: string;
 
-    @Column()
+    @Column({ length: 12 })
     public telefone: string
 
-    @Column()
+    @Column({ nullable: false, unique: true, length: 15 })
     public cpf: string
 
     @OneToOne(type => Endereco, dados => Dados, {

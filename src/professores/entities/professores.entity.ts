@@ -9,12 +9,14 @@ export class Professor {
     @PrimaryGeneratedColumn('uuid')
     public readonly id: string
 
-    @Column()
+    @Column({ nullable: false, unique: true })
     public cref: string;
 
     @OneToOne(type => Dados, professor => Professor, {
         eager: true,
-        cascade: true
+        cascade: true,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
     })
     @JoinColumn()
     dados: Dados
@@ -22,7 +24,8 @@ export class Professor {
     @OneToOne(type => Usuario, professor => Professor, {
         eager: true,
         cascade: true,
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
     })
     @JoinColumn()
     usuario: Usuario

@@ -30,14 +30,21 @@ export class UsuariosService {
     }
   }
 
-  findOne(id: string): Promise<Usuario> {
-    return this.usuarioRepository.findOne({ id: id });
+  async findOne(id: string): Promise<Usuario> {
+    try {
+      const usuario = await this.usuarioRepository.findOne({ id: id });
+      if (usuario) return usuario
+      throw new Error("Usuario não encontrado")
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 
   async findOneEmail(email: string): Promise<Usuario> {
     try {
-
-      return await this.usuarioRepository.findOne({ email: email });
+      const usuario = await this.usuarioRepository.findOne({ email: email });
+      if (usuario) return usuario
+      throw new Error("Usuario não encontrado")
     } catch (error) {
       return error
     }

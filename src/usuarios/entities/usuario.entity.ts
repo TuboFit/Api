@@ -1,5 +1,4 @@
-import { Dados } from "src/dados/entities/dado.entity";
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from "typeorm";
 import { CreateUsuarioDto } from "../dto/create-usuario.dto";
 import { UpdateUsuarioDto } from "../dto/update-usuario.dto";
 
@@ -20,7 +19,6 @@ export class Usuario {
 
     @UpdateDateColumn()
     updated_at: Date;
-
 
     constructor(user: CreateUsuarioDto | UpdateUsuarioDto) {
         Object.assign(this, user)

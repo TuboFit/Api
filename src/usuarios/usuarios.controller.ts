@@ -11,27 +11,39 @@ export class UsuariosController {
     try {
       return this.usuariosService.create(createUsuarioDto);
     } catch (error) {
-      throw new HttpException("Erro ao cadastrar usuario", HttpStatus.NOT_ACCEPTABLE);
+      throw new HttpException("Erro ao cadastrar usuario", HttpStatus.NOT_IMPLEMENTED);
     }
   }
 
   @Get()
-  findAll() {
-    return this.usuariosService.findAll();
+  async findAll() {
+    return await this.usuariosService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usuariosService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.usuariosService.findOne(id);
+    } catch (error) {
+      return new HttpException("Usuario não encontrado", HttpStatus.NOT_FOUND);
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-    return this.usuariosService.update(id, updateUsuarioDto);
+  async update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+    try {
+      return await this.usuariosService.update(id, updateUsuarioDto);
+    } catch (error) {
+      throw new HttpException("Usuario não encontrado", HttpStatus.NOT_IMPLEMENTED);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usuariosService.remove(id);
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.usuariosService.remove(id);
+    } catch (error) {
+      throw new HttpException("Usuario não deletado", HttpStatus.NOT_IMPLEMENTED);
+    }
   }
 }

@@ -17,18 +17,18 @@ export class DadoController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     try {
-      return this.dadoService.findAll();
+      return await this.dadoService.findAll();
     } catch (error) {
       throw new HttpException("Dados não encontrados", HttpStatus.NOT_FOUND);
     }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     try {
-      return this.dadoService.findOne(id);
+      return await this.dadoService.findOne(id);
     } catch (error) {
       throw new HttpException("Dados não encontrados", HttpStatus.NOT_FOUND);
     }

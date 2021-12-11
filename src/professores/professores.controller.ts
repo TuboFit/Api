@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { ProfessoresService } from './professores.service';
 import { CreateProfessorDto } from './dto/create-professore.dto';
 import { UpdateProfessorDto } from './dto/update-professore.dto';
@@ -8,27 +8,49 @@ export class ProfessoresController {
   constructor(private readonly professoresService: ProfessoresService) { }
 
   @Post()
-  create(@Body() createProfessoreDto: CreateProfessorDto) {
-    return this.professoresService.create(createProfessoreDto);
+  async create(@Body() createProfessoreDto: CreateProfessorDto) {
+    try {
+      return await this.professoresService.create(createProfessoreDto);
+    } catch (error) {
+      throw new HttpException("Professores não cadastrado", HttpStatus.NOT_IMPLEMENTED);
+    }
   }
 
   @Get()
-  findAll() {
-    return this.professoresService.findAll();
+  async findAll() {
+    try {
+      return await this.professoresService.findAll();
+
+    } catch (error) {
+      throw new HttpException("Professores não encontrados", HttpStatus.NOT_FOUND);
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.professoresService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.professoresService.findOne(id);
+
+    } catch (error) {
+      throw new HttpException("Professor não encontrado", HttpStatus.NOT_FOUND);
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProfessorDto: UpdateProfessorDto) {
-    return this.professoresService.update(id, updateProfessorDto);
+  async update(@Param('id') id: string, @Body() updateProfessorDto: UpdateProfessorDto) {
+    try {
+      return await this.professoresService.update(id, updateProfessorDto);
+    } catch (error) {
+      throw new HttpException("Não foi possivel alterar o professor", HttpStatus.NOT_IMPLEMENTED);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.professoresService.remove(id);
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.professoresService.remove(id);
+    } catch (error) {
+      throw new HttpException("Não foi possivel deletar o professor", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

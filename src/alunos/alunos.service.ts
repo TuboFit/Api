@@ -1,26 +1,74 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { hashSync } from 'bcrypt';
+import { setIMC, setTMB } from 'src/utils/Alunos';
+import { Repository } from 'typeorm';
 import { CreateAlunoDto } from './dto/create-aluno.dto';
 import { UpdateAlunoDto } from './dto/update-aluno.dto';
+import { Aluno } from './entities/aluno.entity';
 
 @Injectable()
 export class AlunosService {
-  create(createAlunoDto: CreateAlunoDto) {
-    return 'This action adds a new aluno';
+  constructor(
+    @Inject("ALUNO_REPOSITORY")
+    private alunoRepository: Repository<Aluno>
+  ) { }
+
+  async create(createAlunoDto: CreateAlunoDto) {
+    const newAluno = new Aluno(createAlunoDto)
+    newAluno.usuario.password = hashSync(createAlunoDto.usuario.password, 10)
+    newAluno.imc = setIMC(createAlunoDto.altura, createAlunoDto.peso)
+    newAluno.tmb = setTMB(createAlunoDto.altura, createAlunoDto.peso, createAlunoDto.idade, createAlunoDto.genero)
+    try {
+      return await this.alunoRepository
+        .save(newAluno)
+        .then(res => res)
+        .catch((e) => new Error("Não foi possivel cadastrar aluno" + e))
+    } catch (error) {
+      throw new Error(error.message);
+
+    }
   }
 
-  findAll() {
-    return `This action returns all alunos`;
+  async findAll(): Promise<Aluno[] | Error> {
+    const alunos = await this.alunoRepository.find();
+    try {
+      if (alunos) return alunos
+      return new Error("Alunos não encontrados")
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} aluno`;
+  async findOne(id: string): Promise<Aluno | Error> {
+    const aluno = await this.alunoRepository.findOne(id);
+    try {
+      if (aluno) return aluno
+      return new Error("Aluno não encontrado")
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
-  update(id: number, updateAlunoDto: UpdateAlunoDto) {
-    return `This action updates a #${id} aluno`;
+  async update(id: string, updateAlunoDto: UpdateAlunoDto) {
+    const getAluno = await this.alunoRepository.findOne(id)
+    try {
+      if (getAluno) {
+        this.alunoRepository.merge(getAluno, updateAlunoDto)
+        return await this.alunoRepository.save(getAluno)
+      }
+      return new Error("Aluno não encontrado")
+    } catch (error) {
+      throw new Error("Não foi possivel atualizar o aluno")
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} aluno`;
+  async remove(id: string) {
+    const aluno = this.alunoRepository.findOne(id)
+    try {
+      if (aluno) return await this.alunoRepository.delete(id);
+      throw new Error("Não foi possivel deletar o aluno")
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 }
