@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -8,7 +8,11 @@ export class UsuariosController {
 
   @Post()
   create(@Body() createUsuarioDto: CreateUsuarioDto) {
-    return this.usuariosService.create(createUsuarioDto);
+    try {
+      return this.usuariosService.create(createUsuarioDto);
+    } catch (error) {
+      throw new HttpException("Erro ao cadastrar usuario", HttpStatus.NOT_ACCEPTABLE);
+    }
   }
 
   @Get()

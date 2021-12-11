@@ -1,28 +1,19 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, Generated, PrimaryColumn, BeforeInsert, BeforeUpdate, OneToMany, OneToOne, JoinColumn } from "typeorm";
-import bcrypt from "bcrypt"
-import { Pessoa } from "src/pessoas/entities/pessoa.entity";
+import { Dados } from "src/dados/entities/dado.entity";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import { CreateUsuarioDto } from "../dto/create-usuario.dto";
+import { UpdateUsuarioDto } from "../dto/update-usuario.dto";
 
 @Entity("usuarios")
 export class Usuario {
 
-    @PrimaryColumn({ type: 'uuid' })
-    @Generated('uuid')
-    id: string;
+    @PrimaryGeneratedColumn("uuid")
+    public readonly id: string;
 
     @Column({ nullable: false, unique: true })
-    email: string;
+    public email: string;
 
-    @Column({ nullable: true, default: "mudar123" })
-    password: string;
-
-    @OneToOne(() => Pessoa, {
-        eager: true,
-        cascade: true,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
-    })
-    @JoinColumn()
-    dados: Pessoa
+    @Column({ nullable: true })
+    public password: string;
 
     @CreateDateColumn()
     created_at: Date;
@@ -30,11 +21,8 @@ export class Usuario {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @BeforeInsert()
-    @BeforeUpdate()
-    hashPassword?: any = function () {
-        if (this.password) {
-            this.password = bcrypt.hashSync(this.password, 10)
-        }
+
+    constructor(user: CreateUsuarioDto | UpdateUsuarioDto) {
+        Object.assign(this, user)
     }
 }

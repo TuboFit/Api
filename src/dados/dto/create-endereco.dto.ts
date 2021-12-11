@@ -1,6 +1,7 @@
+
 export class CreateEnderecoDto {
     logradouro: string;
-    numero: number;
+    numero: string;
     bairro: string;
     cidade: string;
     uf: string;

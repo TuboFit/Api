@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { hashSync } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
@@ -11,15 +12,13 @@ export class UsuariosService {
     private usuarioRepository: Repository<Usuario>,
   ) { }
 
-  create(createUsuarioDto: CreateUsuarioDto) {
+  async create(createUsuarioDto: CreateUsuarioDto) {
+    const usuario = new Usuario(createUsuarioDto)
     try {
-      const usuario = new Usuario()
-      usuario.email = createUsuarioDto.email;
-      usuario.password = createUsuarioDto.password;
-
-      return this.usuarioRepository.save(usuario);
+      usuario.password = hashSync(createUsuarioDto.password, 10)
+      if (usuario) return await this.usuarioRepository.save(usuario)
     } catch (error) {
-      return error
+      throw new Error("Usuario não cadastrado")
     }
   }
 
@@ -45,18 +44,25 @@ export class UsuariosService {
   }
 
   async update(id: string, updateUsuarioDto: UpdateUsuarioDto) {
+    const newUser = new Usuario(updateUsuarioDto)
+    newUser.password = hashSync(updateUsuarioDto.password, 10)
     try {
       const getUsuario = await this.usuarioRepository.findOne(id)
-      this.usuarioRepository.merge(getUsuario, updateUsuarioDto)
-      return await this.usuarioRepository.save(getUsuario)
+      if (getUsuario) {
+        this.usuarioRepository.merge(getUsuario, newUser)
+        return await this.usuarioRepository.save(getUsuario)
+      }
+      throw new Error("Usuario não foi atualizado")
     } catch (error) {
-      return error
+      return new Error(error.message)
     }
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     try {
-      return this.usuarioRepository.delete({ id: id });
+      const getUsuario = await this.usuarioRepository.findOne(id)
+      if (getUsuario) return await this.usuarioRepository.delete({ id: id }).then(() => "Usuario deletado").catch((e) => `Usuario não pode ser deletado${e}`)
+      throw new Error("Usuario não encontrado")
     } catch (error) {
       return error
     }
