@@ -1,0 +1,1 @@
+{"version":3,"file":"professores.providers.js","sourceRoot":"","sources":["../../src/professores/professores.providers.ts"],"names":[],"mappings":";;;AACA,sEAA0D;AAE7C,QAAA,kBAAkB,GAAG;IAC9B;QACI,OAAO,EAAE,sBAAsB;QAC/B,UAAU,EAAE,CAAC,UAAsB,EAAE,EAAE,CAAC,UAAU,CAAC,aAAa,CAAC,8BAAS,CAAC;QAC3E,MAAM,EAAE,CAAC,qBAAqB,CAAC;KAClC;CACJ,CAAC"}

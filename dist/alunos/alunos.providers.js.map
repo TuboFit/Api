@@ -1,0 +1,1 @@
+{"version":3,"file":"alunos.providers.js","sourceRoot":"","sources":["../../src/alunos/alunos.providers.ts"],"names":[],"mappings":";;;AACA,0DAAgD;AAEnC,QAAA,eAAe,GAAG;IAC3B;QACI,OAAO,EAAE,kBAAkB;QAC3B,UAAU,EAAE,CAAC,UAAsB,EAAE,EAAE,CAAC,UAAU,CAAC,aAAa,CAAC,oBAAK,CAAC;QACvE,MAAM,EAAE,CAAC,qBAAqB,CAAC;KAClC;CACJ,CAAC"}

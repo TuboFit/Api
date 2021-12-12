@@ -1,5 +1,5 @@
-import { createConnection } from 'typeorm';
 
+import { createConnection } from 'typeorm';
 
 export const databaseProviders = [
     {
@@ -11,6 +11,10 @@ export const databaseProviders = [
             entities: [
                 __dirname + '/../**/*.entity{.ts,.js}',
             ],
+            migrations: [
+                __dirname, '../database/migrations/*'
+            ],
+            cli: { migrationsDir: 'src/database/migrations' },
             synchronize: true,
         }),
     },
