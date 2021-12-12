@@ -9,6 +9,7 @@ exports.databaseProviders = [
             type: 'postgres',
             name: 'turbo_fit_database',
             url: process.env.DATABASE_URL,
+            ssl: { rejectUnauthorized: false },
             entities: [
                 __dirname + '/../**/*.entity{.ts,.js}',
             ],
