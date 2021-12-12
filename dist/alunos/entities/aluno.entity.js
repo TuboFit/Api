@@ -12,9 +12,10 @@ var Aluno_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Aluno = void 0;
 const dado_entity_1 = require("../../dados/entities/dado.entity");
+const treino_entity_1 = require("../../treinos/entities/treino.entity");
 const usuario_entity_1 = require("../../usuarios/entities/usuario.entity");
 const typeorm_1 = require("typeorm");
-const gereno_enum_1 = require("./gereno.enum");
+const gereno_enum_1 = require("./Enum/gereno.enum");
 let Aluno = Aluno_1 = class Aluno {
     constructor(aluno) {
         Object.assign(this, aluno);
@@ -55,7 +56,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.OneToOne)(type => dado_entity_1.Dados, aluno => Aluno_1, {
         eager: true,
-        cascade: true,
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", dado_entity_1.Dados)
@@ -63,11 +64,19 @@ __decorate([
 __decorate([
     (0, typeorm_1.OneToOne)(type => usuario_entity_1.Usuario, aluno => Aluno_1, {
         eager: true,
-        cascade: true,
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", usuario_entity_1.Usuario)
 ], Aluno.prototype, "usuario", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(type => treino_entity_1.Treino, {
+        eager: true,
+        cascade: ['insert', 'update']
+    }),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Array)
+], Aluno.prototype, "treinos", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

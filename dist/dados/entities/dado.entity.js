@@ -41,7 +41,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.OneToOne)(type => endereco_entity_1.Endereco, dados => Dados_1, {
         eager: true,
-        cascade: true
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", endereco_entity_1.Endereco)

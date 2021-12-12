@@ -7,7 +7,7 @@ export declare class DadoService {
     private dadosRepository;
     private enderecoRepository;
     constructor(dadosRepository: Repository<Dados>, enderecoRepository: Repository<Endereco>);
-    create(createDadoDto: CreateDadosDto): Promise<Error | Dados>;
+    create(createDadoDto: CreateDadosDto): Promise<Dados | Error>;
     findAll(): Promise<Dados[]>;
     findOne(id: string): Promise<Dados>;
     update(id: string, updateDadoDto: UpdateDadosDto): Promise<Dados>;

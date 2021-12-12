@@ -5,6 +5,7 @@ export declare class Treino {
     grupMuscular: string;
     dia: string;
     nivel: string;
+    crefProfessor: string;
     exercicios: Exercicio[];
     constructor(treino: CreateTreinoDto);
 }

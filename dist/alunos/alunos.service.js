@@ -28,10 +28,10 @@ let AlunosService = class AlunosService {
         newAluno.imc = (0, Alunos_1.setIMC)(createAlunoDto.altura, createAlunoDto.peso);
         newAluno.tmb = (0, Alunos_1.setTMB)(createAlunoDto.altura, createAlunoDto.peso, createAlunoDto.idade, createAlunoDto.genero);
         try {
-            return await this.alunoRepository
-                .save(newAluno)
-                .then(res => res)
-                .catch((e) => new Error("Não foi possivel cadastrar aluno" + e));
+            const aluno = await this.alunoRepository.save(newAluno);
+            if (aluno)
+                return aluno;
+            throw new Error("Aluno não cadastrado");
         }
         catch (error) {
             throw new Error(error.message);

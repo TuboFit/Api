@@ -1,4 +1,5 @@
 import { Dados } from "src/dados/entities/dado.entity";
+import { Treino } from "src/treinos/entities/treino.entity";
 import { Usuario } from "src/usuarios/entities/usuario.entity";
 import { CreateAlunoDto } from "../dto/create-aluno.dto";
 import { UpdateAlunoDto } from "../dto/update-aluno.dto";
@@ -13,6 +14,7 @@ export declare class Aluno {
     obs: string;
     dados: Dados;
     usuario: Usuario;
+    treinos: Treino[];
     created_at: Date;
     updated_at: Date;
     constructor(aluno: CreateAlunoDto | UpdateAlunoDto);

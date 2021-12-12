@@ -30,9 +30,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.OneToOne)(type => dado_entity_1.Dados, professor => Professor_1, {
         eager: true,
-        cascade: true,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", dado_entity_1.Dados)
@@ -40,9 +38,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.OneToOne)(type => usuario_entity_1.Usuario, professor => Professor_1, {
         eager: true,
-        cascade: true,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     }),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", usuario_entity_1.Usuario)

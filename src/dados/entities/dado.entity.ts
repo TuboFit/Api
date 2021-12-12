@@ -23,7 +23,7 @@ export class Dados {
 
     @OneToOne(type => Endereco, dados => Dados, {
         eager: true,
-        cascade: true
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     })
     @JoinColumn()
     endereco: Endereco;

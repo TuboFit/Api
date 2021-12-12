@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Treino = void 0;
+const professores_entity_1 = require("../../professores/entities/professores.entity");
 const typeorm_1 = require("typeorm");
 const create_treino_dto_1 = require("../dto/create-treino.dto");
 const Nivel_1 = require("./Enum/Nivel");
@@ -36,8 +37,13 @@ __decorate([
     __metadata("design:type", String)
 ], Treino.prototype, "nivel", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: false }),
+    __metadata("design:type", String)
+], Treino.prototype, "crefProfessor", void 0);
+__decorate([
     (0, typeorm_1.ManyToMany)(type => exercicios_entity_1.Exercicio, {
-        eager: true, cascade: true
+        eager: true,
+        cascade: true
     }),
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)

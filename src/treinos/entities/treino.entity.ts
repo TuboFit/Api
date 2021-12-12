@@ -1,4 +1,6 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { type } from "os";
+import { Professor } from "src/professores/entities/professores.entity";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CreateTreinoDto } from "../dto/create-treino.dto";
 import { Nivel } from "./Enum/Nivel";
 import { Exercicio } from "./exercicios.entity";
@@ -17,8 +19,12 @@ export class Treino {
     @Column({ type: "enum", enum: Nivel, default: Nivel.INICIANTE })
     public nivel: string;
 
+    @Column({ nullable: false })
+    public crefProfessor: string
+
     @ManyToMany(type => Exercicio, {
-        eager: true, cascade: true
+        eager: true,
+        cascade: true
     })
     @JoinTable()
     exercicios: Exercicio[];

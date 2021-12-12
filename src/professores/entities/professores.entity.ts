@@ -14,18 +14,14 @@ export class Professor {
 
     @OneToOne(type => Dados, professor => Professor, {
         eager: true,
-        cascade: true,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     })
     @JoinColumn()
     dados: Dados
 
     @OneToOne(type => Usuario, professor => Professor, {
         eager: true,
-        cascade: true,
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
+        cascade: ['insert', 'remove', 'soft-remove', 'update']
     })
     @JoinColumn()
     usuario: Usuario

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateAlunoDto = void 0;
 const dado_entity_1 = require("../../dados/entities/dado.entity");
+const treino_entity_1 = require("../../treinos/entities/treino.entity");
 const usuario_entity_1 = require("../../usuarios/entities/usuario.entity");
 class CreateAlunoDto {
 }
