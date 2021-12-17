@@ -9,5 +9,5 @@ export declare class ProfessoresService {
     findAll(): Promise<Professor[]>;
     findOne(id: string): Promise<Professor>;
     update(id: string, updateProfessoreDto: UpdateProfessorDto): Promise<Professor>;
-    remove(id: string): Promise<import("typeorm").DeleteResult>;
+    remove(id: string): Promise<void>;
 }

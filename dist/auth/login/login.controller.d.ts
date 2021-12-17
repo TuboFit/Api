@@ -8,10 +8,7 @@ export declare class LoginController {
     constructor(loginService: LoginService);
     login(body: IBodyDTO): Promise<{
         token: string;
-        useReturns: {
-            id: string;
-            email: string;
-        };
+        useReturns: any;
     }>;
 }
 export {};

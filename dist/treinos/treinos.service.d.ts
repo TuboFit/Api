@@ -7,7 +7,7 @@ export declare class TreinosService {
     constructor(treinoRepository: Repository<Treino>);
     create(createTreinoDto: CreateTreinoDto): Promise<Treino>;
     findAll(): Promise<Treino[]>;
-    findOne(id: string): string;
-    update(id: string, updateTreinoDto: UpdateTreinoDto): string;
-    remove(id: string): string;
+    findOne(id: string): Promise<Treino>;
+    update(id: string, updateTreinoDto: UpdateTreinoDto): Promise<void>;
+    remove(id: string): Promise<Error | import("typeorm").DeleteResult>;
 }

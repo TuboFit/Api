@@ -6,7 +6,7 @@ export declare class TreinosController {
     constructor(treinosService: TreinosService);
     create(createTreinoDto: CreateTreinoDto): Promise<import("./entities/treino.entity").Treino>;
     findAll(): Promise<import("./entities/treino.entity").Treino[]>;
-    findOne(id: string): string;
-    update(id: string, updateTreinoDto: UpdateTreinoDto): string;
-    remove(id: string): string;
+    findOne(id: string): Promise<import("./entities/treino.entity").Treino>;
+    update(id: string, updateTreinoDto: UpdateTreinoDto): Promise<void>;
+    remove(id: string): Promise<Error | import("typeorm").DeleteResult>;
 }

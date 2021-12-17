@@ -50,7 +50,7 @@ let AlunosController = class AlunosController {
             return await this.alunosService.update(id, updateAlunoDto);
         }
         catch (error) {
-            throw new common_1.HttpException("Aluno não atualizado", common_1.HttpStatus.AMBIGUOUS);
+            throw new common_1.HttpException("Aluno não atualizado", common_1.HttpStatus.NOT_ACCEPTABLE);
         }
     }
     async remove(id) {

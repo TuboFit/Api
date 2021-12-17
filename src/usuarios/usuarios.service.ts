@@ -24,7 +24,7 @@ export class UsuariosService {
 
   findAll(): Promise<Usuario[]> {
     try {
-      return this.usuarioRepository.find();
+      return this.usuarioRepository.query("SELECT * FROM usuarios");
     } catch (error) {
       return error
     }
@@ -32,7 +32,7 @@ export class UsuariosService {
 
   async findOne(id: string): Promise<Usuario> {
     try {
-      const usuario = await this.usuarioRepository.findOne({ id: id });
+      const usuario = await this.usuarioRepository.findOne(id)
       if (usuario) return usuario
       throw new Error("Usuario não encontrado")
     } catch (error) {
@@ -40,10 +40,18 @@ export class UsuariosService {
     }
   }
 
-  async findOneEmail(email: string): Promise<Usuario> {
+  async findOneEmail(email: string) {
     try {
-      const usuario = await this.usuarioRepository.findOne({ email: email });
-      if (usuario) return usuario
+      const usuario = await this.usuarioRepository.findOne({ email: email })
+      if (usuario && usuario.type === 'professor') {
+        const dadosProfessor = await this.usuarioRepository.query(`SELECT * FROM professores WHERE "usuarioId"='${usuario.id}'`)
+        return { ...usuario, ...dadosProfessor[0] }
+      } else if (usuario && usuario.type === 'aluno') {
+        const dadosAlunos = await this.usuarioRepository.query(`SELECT * FROM alunos WHERE "usuarioId"='${usuario.id}'`)
+        return { ...usuario, ...dadosAlunos[0] }
+      } else if (usuario && usuario.type === 'admin') {
+        return usuario
+      }
       throw new Error("Usuario não encontrado")
     } catch (error) {
       return error

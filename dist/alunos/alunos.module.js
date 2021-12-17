@@ -12,12 +12,14 @@ const alunos_service_1 = require("./alunos.service");
 const alunos_controller_1 = require("./alunos.controller");
 const database_module_1 = require("../database/database.module");
 const alunos_providers_1 = require("./alunos.providers");
+const usuarios_module_1 = require("../usuarios/usuarios.module");
 let AlunosModule = class AlunosModule {
 };
 AlunosModule = __decorate([
     (0, common_1.Module)({
         imports: [
             database_module_1.DatabaseModule,
+            (0, common_1.forwardRef)(() => usuarios_module_1.UsuariosModule)
         ],
         controllers: [alunos_controller_1.AlunosController],
         providers: [

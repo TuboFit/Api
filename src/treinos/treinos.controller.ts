@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TreinosService } from './treinos.service';
 import { CreateTreinoDto } from './dto/create-treino.dto';
 import { UpdateTreinoDto } from './dto/update-treino.dto';
@@ -21,6 +21,7 @@ export class TreinosController {
   findOne(@Param('id') id: string) {
     return this.treinosService.findOne(id);
   }
+
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTreinoDto: UpdateTreinoDto) {

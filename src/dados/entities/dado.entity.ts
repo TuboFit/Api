@@ -12,9 +12,6 @@ export class Dados {
     @Column({ length: "90", nullable: false })
     public nome: string;
 
-    @Column({ nullable: false })
-    public email: string;
-
     @Column({ length: 12 })
     public telefone: string
 

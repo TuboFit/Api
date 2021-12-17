@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Treino = void 0;
 const professores_entity_1 = require("../../professores/entities/professores.entity");
 const typeorm_1 = require("typeorm");
-const create_treino_dto_1 = require("../dto/create-treino.dto");
 const Nivel_1 = require("./Enum/Nivel");
 const exercicios_entity_1 = require("./exercicios.entity");
 let Treino = class Treino {
@@ -50,7 +49,7 @@ __decorate([
 ], Treino.prototype, "exercicios", void 0);
 Treino = __decorate([
     (0, typeorm_1.Entity)("treinos"),
-    __metadata("design:paramtypes", [create_treino_dto_1.CreateTreinoDto])
+    __metadata("design:paramtypes", [Object])
 ], Treino);
 exports.Treino = Treino;
 //# sourceMappingURL=treino.entity.js.map

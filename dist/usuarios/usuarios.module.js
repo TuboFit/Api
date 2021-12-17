@@ -13,13 +13,15 @@ const usuarios_controller_1 = require("./usuarios.controller");
 const database_module_1 = require("../database/database.module");
 const usuarios_providers_1 = require("./usuarios.providers");
 const auth_module_1 = require("../auth/auth.module");
+const professores_module_1 = require("../professores/professores.module");
+const alunos_module_1 = require("../alunos/alunos.module");
 let UsuariosModule = class UsuariosModule {
 };
 UsuariosModule = __decorate([
     (0, common_1.Module)({
         imports: [
             database_module_1.DatabaseModule,
-            (0, common_1.forwardRef)(() => auth_module_1.AuthModule)
+            (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
         ],
         controllers: [usuarios_controller_1.UsuariosController],
         providers: [

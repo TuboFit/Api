@@ -9,13 +9,13 @@ import { LoginService } from './login/login.service';
 @Module({
   imports: [
     DatabaseModule,
-    forwardRef(() => UsuariosModule)
+    forwardRef(() => UsuariosModule),
   ],
   controllers: [LoginController],
   providers: [
     ...usuarioProviders,
     LoginService,
-    UsuariosService
+    UsuariosService,
   ]
 })
 export class AuthModule { }

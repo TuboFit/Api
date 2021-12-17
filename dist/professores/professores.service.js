@@ -27,7 +27,12 @@ let ProfessoresService = class ProfessoresService {
         return this.professorRepository.save(professor);
     }
     findAll() {
-        return this.professorRepository.find();
+        try {
+            return this.professorRepository.find();
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
     }
     async findOne(id) {
         try {
@@ -41,10 +46,21 @@ let ProfessoresService = class ProfessoresService {
         }
     }
     async update(id, updateProfessoreDto) {
-        const getProfessor = await this.professorRepository.findOne(id);
         try {
+            const updateProfessor = new professores_entity_1.Professor(updateProfessoreDto);
+            const getProfessor = await this.professorRepository.findOne(id);
+            updateProfessor.usuario.password = (0, bcrypt_1.hashSync)(updateProfessoreDto.usuario.password, 10);
             if (getProfessor) {
-                this.professorRepository.merge(getProfessor, updateProfessoreDto);
+                await this.professorRepository
+                    .query(`
+          UPDATE 
+            usuarios
+          SET
+           "email"='${updateProfessor.usuario.email}',
+           "password"='${updateProfessor.usuario.password}'
+          WHERE "id"='${getProfessor.usuario.id}'
+          `);
+                this.professorRepository.merge(getProfessor, updateProfessor);
                 return await this.professorRepository.save(getProfessor);
             }
         }
@@ -53,8 +69,22 @@ let ProfessoresService = class ProfessoresService {
         }
     }
     async remove(id) {
+        const professor = await this.professorRepository.findOne(id);
         try {
-            return await this.professorRepository.delete(id);
+            if (professor) {
+                await this.professorRepository
+                    .delete(id)
+                    .then(() => "Professor deletado do banco de dados")
+                    .catch(e => e);
+                await this.professorRepository
+                    .query(`DELETE FROM dados WHERE "id"='${professor.dados.id}'`)
+                    .then(() => "Dados do professor deletados")
+                    .catch(e => e);
+                await this.professorRepository
+                    .query(`DELETE FROM usuarios WHERE "id"='${professor.usuario.id}'`)
+                    .then(() => "Usuario do professor foi deletado")
+                    .catch(e => e);
+            }
         }
         catch (error) {
             throw new Error("Erro ao deletar professor");

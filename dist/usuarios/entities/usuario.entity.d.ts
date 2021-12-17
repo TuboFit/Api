@@ -4,6 +4,7 @@ export declare class Usuario {
     readonly id: string;
     email: string;
     password: string;
+    type: string;
     created_at: Date;
     updated_at: Date;
     constructor(user: CreateUsuarioDto | UpdateUsuarioDto);

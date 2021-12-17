@@ -10,7 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
+const professores_entity_1 = require("../../professores/entities/professores.entity");
 const typeorm_1 = require("typeorm");
+const UserType_1 = require("./Enum/UserType");
 let Usuario = class Usuario {
     constructor(user) {
         Object.assign(this, user);
@@ -28,6 +30,10 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Usuario.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "enum", enum: UserType_1.UserType, default: UserType_1.UserType.ALUNO }),
+    __metadata("design:type", String)
+], Usuario.prototype, "type", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

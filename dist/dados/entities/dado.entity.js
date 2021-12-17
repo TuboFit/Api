@@ -27,10 +27,6 @@ __decorate([
     __metadata("design:type", String)
 ], Dados.prototype, "nome", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
-    __metadata("design:type", String)
-], Dados.prototype, "email", void 0);
-__decorate([
     (0, typeorm_1.Column)({ length: 12 }),
     __metadata("design:type", String)
 ], Dados.prototype, "telefone", void 0);

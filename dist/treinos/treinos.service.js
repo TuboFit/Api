@@ -28,13 +28,30 @@ let TreinosService = class TreinosService {
         return this.treinoRepository.find();
     }
     findOne(id) {
-        return `This action returns a #${id} treino`;
+        return this.treinoRepository.findOne(id);
     }
-    update(id, updateTreinoDto) {
-        return `This action updates a #${id} treino`;
+    async update(id, updateTreinoDto) {
+        try {
+            const updateTreino = new treino_entity_1.Treino(updateTreinoDto);
+            const treino = await this.treinoRepository.findOne(id);
+            if (treino) {
+                this.treinoRepository.merge(treino, updateTreino);
+                await this.treinoRepository.save(treino);
+            }
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
     }
-    remove(id) {
-        return `This action removes a #${id} treino`;
+    async remove(id) {
+        try {
+            const treino = await this.treinoRepository.findOne(id);
+            if (treino)
+                return await this.treinoRepository.delete(id);
+        }
+        catch (error) {
+            return new Error(error.message);
+        }
     }
 };
 TreinosService = __decorate([

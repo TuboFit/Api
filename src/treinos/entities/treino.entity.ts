@@ -2,6 +2,7 @@ import { type } from "os";
 import { Professor } from "src/professores/entities/professores.entity";
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CreateTreinoDto } from "../dto/create-treino.dto";
+import { UpdateTreinoDto } from "../dto/update-treino.dto";
 import { Nivel } from "./Enum/Nivel";
 import { Exercicio } from "./exercicios.entity";
 
@@ -29,7 +30,7 @@ export class Treino {
     @JoinTable()
     exercicios: Exercicio[];
 
-    constructor(treino: CreateTreinoDto) {
+    constructor(treino: CreateTreinoDto | UpdateTreinoDto) {
         Object.assign(this, treino)
     }
 }

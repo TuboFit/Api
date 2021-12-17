@@ -8,7 +8,7 @@ export declare class UsuariosService {
     create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario>;
     findAll(): Promise<Usuario[]>;
     findOne(id: string): Promise<Usuario>;
-    findOneEmail(email: string): Promise<Usuario>;
-    update(id: string, updateUsuarioDto: UpdateUsuarioDto): Promise<Error | Usuario>;
+    findOneEmail(email: string): Promise<any>;
+    update(id: string, updateUsuarioDto: UpdateUsuarioDto): Promise<Usuario | Error>;
     remove(id: string): Promise<any>;
 }

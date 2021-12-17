@@ -21,14 +21,29 @@ export class TreinosService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} treino`;
+    return this.treinoRepository.findOne(id);
   }
 
-  update(id: string, updateTreinoDto: UpdateTreinoDto) {
-    return `This action updates a #${id} treino`;
+  async update(id: string, updateTreinoDto: UpdateTreinoDto) {
+    try {
+      const updateTreino = new Treino(updateTreinoDto)
+      const treino = await this.treinoRepository.findOne(id)
+
+      if (treino) {
+        this.treinoRepository.merge(treino, updateTreino)
+        await this.treinoRepository.save(treino)
+      }
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} treino`;
+  async remove(id: string) {
+    try {
+      const treino = await this.treinoRepository.findOne(id)
+      if (treino) return await this.treinoRepository.delete(id);
+    } catch (error) {
+      return new Error(error.message)
+    }
   }
 }

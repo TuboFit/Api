@@ -40,7 +40,7 @@ export class AlunosController {
     try {
       return await this.alunosService.update(id, updateAlunoDto);
     } catch (error) {
-      throw new HttpException("Aluno não atualizado", HttpStatus.AMBIGUOUS);
+      throw new HttpException("Aluno não atualizado", HttpStatus.NOT_ACCEPTABLE);
     }
   }
 

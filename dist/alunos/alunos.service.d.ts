@@ -8,6 +8,7 @@ export declare class AlunosService {
     create(createAlunoDto: CreateAlunoDto): Promise<Aluno>;
     findAll(): Promise<Aluno[] | Error>;
     findOne(id: string): Promise<Aluno | Error>;
-    update(id: string, updateAlunoDto: UpdateAlunoDto): Promise<Aluno | Error>;
-    remove(id: string): Promise<import("typeorm").DeleteResult>;
+    findOneUser(email: string): Promise<Aluno | Error>;
+    update(id: string, updateAlunoDto: UpdateAlunoDto): Promise<Error | Aluno>;
+    remove(id: string): Promise<void>;
 }

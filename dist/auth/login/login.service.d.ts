@@ -4,9 +4,6 @@ export declare class LoginService {
     constructor(usuariosService: UsuariosService);
     execute(email: string, password: string): Promise<{
         token: string;
-        useReturns: {
-            id: string;
-            email: string;
-        };
+        useReturns: any;
     }>;
 }

@@ -20,13 +20,13 @@ AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
             database_module_1.DatabaseModule,
-            (0, common_1.forwardRef)(() => usuarios_module_1.UsuariosModule)
+            (0, common_1.forwardRef)(() => usuarios_module_1.UsuariosModule),
         ],
         controllers: [login_controller_1.LoginController],
         providers: [
             ...usuarios_providers_1.usuarioProviders,
             login_service_1.LoginService,
-            usuarios_service_1.UsuariosService
+            usuarios_service_1.UsuariosService,
         ]
     })
 ], AuthModule);

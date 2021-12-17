@@ -59,11 +59,42 @@ let AlunosService = class AlunosService {
             throw new Error(error.message);
         }
     }
+    async findOneUser(email) {
+        const aluno = await this.alunoRepository.findOne({
+            where: {
+                usuario: {
+                    email: email
+                }
+            },
+            relations: ['dados', 'usuarios']
+        });
+        try {
+            if (aluno)
+                return aluno;
+            return new Error("Aluno não encontrado");
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
     async update(id, updateAlunoDto) {
+        const updateAluno = new aluno_entity_1.Aluno(updateAlunoDto);
+        updateAluno.usuario.password = (0, bcrypt_1.hashSync)(updateAlunoDto.usuario.password, 10);
+        updateAluno.imc = (0, Alunos_1.setIMC)(updateAlunoDto.altura, updateAlunoDto.peso);
+        updateAluno.tmb = (0, Alunos_1.setTMB)(updateAlunoDto.altura, updateAlunoDto.peso, updateAlunoDto.idade, updateAlunoDto.genero);
         const getAluno = await this.alunoRepository.findOne(id);
         try {
             if (getAluno) {
-                this.alunoRepository.merge(getAluno, updateAlunoDto);
+                await this.alunoRepository
+                    .query(`
+        UPDATE 
+          usuarios
+        SET
+         "email"='${updateAluno.usuario.email}',
+         "password"='${updateAluno.usuario.password}'
+        WHERE "id"='${getAluno.usuario.id}'
+        `);
+                this.alunoRepository.merge(getAluno, updateAluno);
                 return await this.alunoRepository.save(getAluno);
             }
             return new Error("Aluno não encontrado");
@@ -73,11 +104,13 @@ let AlunosService = class AlunosService {
         }
     }
     async remove(id) {
-        const aluno = this.alunoRepository.findOne(id);
+        const aluno = await this.alunoRepository.findOne(id);
         try {
-            if (aluno)
-                return await this.alunoRepository.delete(id);
-            throw new Error("Não foi possivel deletar o aluno");
+            if (aluno) {
+                await this.alunoRepository.delete(id);
+                await this.alunoRepository.query(`DELETE FROM dados WHERE "id"='${aluno.dados.id}'`);
+                await this.alunoRepository.query(`DELETE FROM usuarios WHERE "id"='${aluno.usuario.id}'`);
+            }
         }
         catch (error) {
             throw new Error(error.message);

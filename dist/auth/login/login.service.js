@@ -14,25 +14,25 @@ const common_1 = require("@nestjs/common");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const usuarios_service_1 = require("../../usuarios/usuarios.service");
+const alunos_service_1 = require("../../alunos/alunos.service");
+const aluno_entity_1 = require("../../alunos/entities/aluno.entity");
 let LoginService = class LoginService {
     constructor(usuariosService) {
         this.usuariosService = usuariosService;
     }
     async execute(email, password) {
         const user = await this.usuariosService.findOneEmail(email);
+        console.log(user);
         if (!user)
             throw new Error("Usuario não exite");
         const authorization = await bcrypt.compare(password, user.password);
         if (!authorization)
             throw new Error("Erro de autenticação");
-        const useReturns = {
-            id: user.id,
-            email: user.email
-        };
+        const useReturns = Object.assign({ id: user.id, email: user.email }, user);
         const token = (0, jsonwebtoken_1.sign)({
             usuario: {
                 id: user.id,
-                email: user.email
+                email: user.email,
             }
         }, process.env.JWT_SECRET, {
             subject: user.id,

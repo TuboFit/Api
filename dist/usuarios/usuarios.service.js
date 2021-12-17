@@ -34,7 +34,7 @@ let UsuariosService = class UsuariosService {
     }
     findAll() {
         try {
-            return this.usuarioRepository.find();
+            return this.usuarioRepository.query("SELECT * FROM usuarios");
         }
         catch (error) {
             return error;
@@ -42,7 +42,7 @@ let UsuariosService = class UsuariosService {
     }
     async findOne(id) {
         try {
-            const usuario = await this.usuarioRepository.findOne({ id: id });
+            const usuario = await this.usuarioRepository.findOne(id);
             if (usuario)
                 return usuario;
             throw new Error("Usuario não encontrado");
@@ -54,8 +54,17 @@ let UsuariosService = class UsuariosService {
     async findOneEmail(email) {
         try {
             const usuario = await this.usuarioRepository.findOne({ email: email });
-            if (usuario)
+            if (usuario && usuario.type === 'professor') {
+                const dadosProfessor = await this.usuarioRepository.query(`SELECT * FROM professores WHERE "usuarioId"='${usuario.id}'`);
+                return Object.assign(Object.assign({}, usuario), dadosProfessor[0]);
+            }
+            else if (usuario && usuario.type === 'aluno') {
+                const dadosAlunos = await this.usuarioRepository.query(`SELECT * FROM alunos WHERE "usuarioId"='${usuario.id}'`);
+                return Object.assign(Object.assign({}, usuario), dadosAlunos[0]);
+            }
+            else if (usuario && usuario.type === 'admin') {
                 return usuario;
+            }
             throw new Error("Usuario não encontrado");
         }
         catch (error) {

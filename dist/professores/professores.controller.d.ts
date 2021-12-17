@@ -8,5 +8,5 @@ export declare class ProfessoresController {
     findAll(): Promise<import("./entities/professores.entity").Professor[]>;
     findOne(id: string): Promise<import("./entities/professores.entity").Professor>;
     update(id: string, updateProfessorDto: UpdateProfessorDto): Promise<import("./entities/professores.entity").Professor>;
-    remove(id: string): Promise<import("typeorm").DeleteResult>;
+    remove(id: string): Promise<void>;
 }
