@@ -6,8 +6,16 @@ export declare class TreinosService {
     private treinoRepository;
     constructor(treinoRepository: Repository<Treino>);
     create(createTreinoDto: CreateTreinoDto): Promise<Treino>;
-    findAll(): Promise<Treino[]>;
-    findOne(id: string): Promise<Treino>;
+    findAll(): Promise<Treino[] | Error>;
+    findOne(id: string): Promise<Error | {
+        id: string;
+        grupMuscular: string;
+        dia: string;
+        nivel: string;
+        crefProfessor: string;
+        exercicios: import("./entities/exercicios.entity").Exercicio[];
+        nomeProfessor: any;
+    }>;
     update(id: string, updateTreinoDto: UpdateTreinoDto): Promise<void>;
     remove(id: string): Promise<Error | import("typeorm").DeleteResult>;
 }

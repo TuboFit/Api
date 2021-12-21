@@ -22,7 +22,6 @@ export class TreinosController {
     return this.treinosService.findOne(id);
   }
 
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTreinoDto: UpdateTreinoDto) {
     return this.treinosService.update(id, updateTreinoDto);

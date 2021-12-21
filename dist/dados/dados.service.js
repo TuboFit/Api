@@ -56,11 +56,14 @@ let DadoService = class DadoService {
         }
     }
     async update(id, updateDadoDto) {
-        const newDados = new dado_entity_1.Dados(updateDadoDto);
         try {
+            const newDados = new dado_entity_1.Dados(updateDadoDto);
             const getDado = await this.dadosRepository.findOne(id);
             if (getDado) {
-                this.dadosRepository.merge(getDado, newDados);
+                getDado.nome = newDados.nome ? newDados.nome : getDado.nome;
+                getDado.cpf = newDados.cpf ? newDados.cpf : getDado.cpf;
+                getDado.telefone = newDados.telefone ? newDados.telefone : getDado.telefone;
+                getDado.endereco = newDados.endereco ? newDados.endereco : getDado.endereco;
                 return await this.dadosRepository.save(getDado);
             }
             throw new Error("Não foi possivel atualizar usuario");

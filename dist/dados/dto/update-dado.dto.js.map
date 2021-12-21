@@ -1,1 +1,1 @@
-{"version":3,"file":"update-dado.dto.js","sourceRoot":"","sources":["../../../src/dados/dto/update-dado.dto.ts"],"names":[],"mappings":";;;AAAA,uDAAmD;AACnD,uDAAmD;AAEnD,MAAa,cAAe,SAAQ,IAAA,0BAAW,EAAC,gCAAc,CAAC;CAAI;AAAnE,wCAAmE"}
+{"version":3,"file":"update-dado.dto.js","sourceRoot":"","sources":["../../../src/dados/dto/update-dado.dto.ts"],"names":[],"mappings":";;;AAAA,uDAAmD;AAEnD,uDAAmD;AAEnD,MAAa,cAAe,SAAQ,IAAA,0BAAW,EAAC,gCAAc,CAAC;CAAI;AAAnE,wCAAmE"}

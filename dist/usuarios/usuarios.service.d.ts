@@ -9,6 +9,6 @@ export declare class UsuariosService {
     findAll(): Promise<Usuario[]>;
     findOne(id: string): Promise<Usuario>;
     findOneEmail(email: string): Promise<any>;
-    update(id: string, updateUsuarioDto: UpdateUsuarioDto): Promise<Usuario | Error>;
+    update(id: string, updateUsuarioDto: UpdateUsuarioDto): Promise<Error | Usuario>;
     remove(id: string): Promise<any>;
 }

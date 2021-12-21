@@ -5,7 +5,7 @@ import { UpdateAlunoDto } from './dto/update-aluno.dto';
 export declare class AlunosController {
     private readonly alunosService;
     constructor(alunosService: AlunosService);
-    create(createAlunoDto: CreateAlunoDto): Promise<import("./entities/aluno.entity").Aluno | HttpException>;
+    create(createAlunoDto: CreateAlunoDto): Promise<HttpException | import("./entities/aluno.entity").Aluno>;
     findAll(): Promise<Error | import("./entities/aluno.entity").Aluno[]>;
     findOne(id: string): Promise<Error | import("./entities/aluno.entity").Aluno>;
     update(id: string, updateAlunoDto: UpdateAlunoDto): Promise<Error | import("./entities/aluno.entity").Aluno>;

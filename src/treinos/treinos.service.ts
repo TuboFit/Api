@@ -16,12 +16,26 @@ export class TreinosService {
     return this.treinoRepository.save(treino);
   }
 
-  findAll(): Promise<Treino[]> {
-    return this.treinoRepository.find();
+  async findAll() {
+    try {
+      return await this.treinoRepository.find()
+    } catch (error) {
+      return new Error(error.message)
+    }
   }
 
-  findOne(id: string) {
-    return this.treinoRepository.findOne(id);
+
+  async findOne(id: string) {
+    try {
+      const treino = await this.treinoRepository.findOne(id);
+      const idDados = await this.treinoRepository.query(`SELECT "dadosId" FROM professores WHERE cref='${treino.crefProfessor}' LIMIT 1`)
+      const professor = await this.treinoRepository.query(`SELECT nome FROM dados WHERE id='${idDados[0].dadosId}' LIMIT 1`)
+      if (professor && treino) {
+        return { nomeProfessor: professor[0].nome, ...treino }
+      }
+    } catch (error) {
+      return new Error(error.message)
+    }
   }
 
   async update(id: string, updateTreinoDto: UpdateTreinoDto) {
@@ -42,6 +56,7 @@ export class TreinosService {
     try {
       const treino = await this.treinoRepository.findOne(id)
       if (treino) return await this.treinoRepository.delete(id);
+      return new Error("treino não encontrado")
     } catch (error) {
       return new Error(error.message)
     }

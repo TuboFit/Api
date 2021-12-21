@@ -7,7 +7,7 @@ export declare class UsuariosController {
     constructor(usuariosService: UsuariosService);
     create(createUsuarioDto: CreateUsuarioDto): Promise<import("./entities/usuario.entity").Usuario>;
     findAll(): Promise<import("./entities/usuario.entity").Usuario[]>;
-    findOne(id: string): Promise<import("./entities/usuario.entity").Usuario | HttpException>;
-    update(id: string, updateUsuarioDto: UpdateUsuarioDto): Promise<import("./entities/usuario.entity").Usuario | Error>;
+    findOne(id: string): Promise<HttpException | import("./entities/usuario.entity").Usuario>;
+    update(id: string, updateUsuarioDto: UpdateUsuarioDto): Promise<Error | import("./entities/usuario.entity").Usuario>;
     remove(id: string): Promise<any>;
 }
