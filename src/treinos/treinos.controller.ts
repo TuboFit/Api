@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus, Req } from '@nestjs/common';
 import { TreinosService } from './treinos.service';
 import { CreateTreinoDto } from './dto/create-treino.dto';
 import { UpdateTreinoDto } from './dto/update-treino.dto';
+import { Request } from 'express';
 
 @Controller('treinos')
 export class TreinosController {
@@ -18,8 +19,23 @@ export class TreinosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.treinosService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.treinosService.findOne(id);
+    } catch (error) {
+      return new HttpException(error, HttpStatus.BAD_REQUEST)
+    }
+  }
+
+
+  @Get('/treinosby/teacher')
+  async findForCref(@Query('cref') cref: string) {
+    try {
+      return await this.treinosService.findAllForCref(cref);
+    } catch (error) {
+      return new HttpException(error, HttpStatus.BAD_REQUEST)
+    }
+
   }
 
   @Patch(':id')

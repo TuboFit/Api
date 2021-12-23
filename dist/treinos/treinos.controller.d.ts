@@ -9,12 +9,13 @@ export declare class TreinosController {
     findOne(id: string): Promise<Error | {
         id: string;
         grupMuscular: string;
-        dia: string;
+        nome: string;
         nivel: string;
         crefProfessor: string;
         exercicios: import("./entities/exercicios.entity").Exercicio[];
         nomeProfessor: any;
     }>;
+    findForCref(cref: string): Promise<import("./entities/treino.entity").Treino[] | Error>;
     update(id: string, updateTreinoDto: UpdateTreinoDto): Promise<void>;
     remove(id: string): Promise<Error | import("typeorm").DeleteResult>;
 }

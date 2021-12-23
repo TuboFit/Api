@@ -24,13 +24,13 @@ __decorate([
     __metadata("design:type", String)
 ], Treino.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
+    (0, typeorm_1.Column)({ nullable: true, default: 'Todos' }),
     __metadata("design:type", String)
 ], Treino.prototype, "grupMuscular", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], Treino.prototype, "dia", void 0);
+], Treino.prototype, "nome", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "enum", enum: Nivel_1.Nivel, default: Nivel_1.Nivel.INICIANTE }),
     __metadata("design:type", String)

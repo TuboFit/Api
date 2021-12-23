@@ -27,8 +27,21 @@ let TreinosController = class TreinosController {
     findAll() {
         return this.treinosService.findAll();
     }
-    findOne(id) {
-        return this.treinosService.findOne(id);
+    async findOne(id) {
+        try {
+            return await this.treinosService.findOne(id);
+        }
+        catch (error) {
+            return new common_1.HttpException(error, common_1.HttpStatus.BAD_REQUEST);
+        }
+    }
+    async findForCref(cref) {
+        try {
+            return await this.treinosService.findAllForCref(cref);
+        }
+        catch (error) {
+            return new common_1.HttpException(error, common_1.HttpStatus.BAD_REQUEST);
+        }
     }
     update(id, updateTreinoDto) {
         return this.treinosService.update(id, updateTreinoDto);
@@ -55,8 +68,15 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TreinosController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)('/treinosby/teacher'),
+    __param(0, (0, common_1.Query)('cref')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], TreinosController.prototype, "findForCref", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),

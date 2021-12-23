@@ -7,10 +7,11 @@ export declare class TreinosService {
     constructor(treinoRepository: Repository<Treino>);
     create(createTreinoDto: CreateTreinoDto): Promise<Treino>;
     findAll(): Promise<Treino[] | Error>;
+    findAllForCref(cref: string): Promise<Treino[] | Error>;
     findOne(id: string): Promise<Error | {
         id: string;
         grupMuscular: string;
-        dia: string;
+        nome: string;
         nivel: string;
         crefProfessor: string;
         exercicios: import("./entities/exercicios.entity").Exercicio[];

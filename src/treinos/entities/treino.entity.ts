@@ -11,11 +11,11 @@ export class Treino {
     @PrimaryGeneratedColumn("uuid")
     public readonly id: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true, default: 'Todos' })
     public grupMuscular: string;
 
-    @Column({ nullable: false })
-    public dia: string;
+    @Column({ nullable: true })
+    public nome: string;
 
     @Column({ type: "enum", enum: Nivel, default: Nivel.INICIANTE })
     public nivel: string;

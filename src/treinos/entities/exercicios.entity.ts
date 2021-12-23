@@ -9,6 +9,9 @@ export class Exercicio {
     @Column()
     public nome: string;
 
+    @Column({ nullable: true, default: 'all' })
+    public dia: string;
+
     @Column()
     public grupMuscular: string;
 

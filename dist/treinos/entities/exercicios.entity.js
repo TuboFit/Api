@@ -26,6 +26,10 @@ __decorate([
     __metadata("design:type", String)
 ], Exercicio.prototype, "nome", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true, default: 'all' }),
+    __metadata("design:type", String)
+], Exercicio.prototype, "dia", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Exercicio.prototype, "grupMuscular", void 0);

@@ -32,17 +32,26 @@ let TreinosService = class TreinosService {
             return new Error(error.message);
         }
     }
+    async findAllForCref(cref) {
+        try {
+            return await this.treinoRepository.find({ where: { crefProfessor: cref } });
+        }
+        catch (error) {
+            return new Error(error.message);
+        }
+    }
     async findOne(id) {
         try {
             const treino = await this.treinoRepository.findOne(id);
-            const idDados = await this.treinoRepository.query(`SELECT "dadosId" FROM professores WHERE cref='${treino.crefProfessor}' LIMIT 1`);
+            const idDados = await this.treinoRepository.query(`SELECT "dadosId" FROM professores WHERE "cref"='${treino.crefProfessor}' LIMIT 1`);
             const professor = await this.treinoRepository.query(`SELECT nome FROM dados WHERE id='${idDados[0].dadosId}' LIMIT 1`);
             if (professor && treino) {
                 return Object.assign({ nomeProfessor: professor[0].nome }, treino);
             }
+            throw new Error("Dados não carregados");
         }
         catch (error) {
-            return new Error(error.message);
+            return new Error(error);
         }
     }
     async update(id, updateTreinoDto) {
